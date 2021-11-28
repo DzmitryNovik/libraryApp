@@ -5,16 +5,15 @@ import ru.novik.spring.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class PersonDAO {
 
     private static int PEOPLE_COUNT = 0;
-    private List<Person> people;
+    private final List<Person> people = new ArrayList<>();
 
     {
-        people = new ArrayList<>();
-
         people.add(new Person(PEOPLE_COUNT++, "Tom"));
         people.add(new Person(PEOPLE_COUNT++, "Bob"));
         people.add(new Person(PEOPLE_COUNT++, "Carl"));
@@ -26,14 +25,10 @@ public class PersonDAO {
     }
 
     public Person show(int id) {
-        /*Person tempPerson = null;
-        for (Person person : people) {
-            if (id == person.getId()) {
-                tempPerson = people.get(id);
-            }
-        }
-        return tempPerson;*/
-        return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
+        return people.stream()
+                .filter(person -> Objects.equals(person.getId(), id))
+                .findAny()
+                .orElse(null);
     }
 
     public void save(Person person) {
@@ -47,11 +42,6 @@ public class PersonDAO {
     }
 
     public void delete(int id) {
-        /*for (int i = 0; i < people.size(); i++) {
-            if (id == people.indexOf(people.get(i))) {
-                people.remove(i);
-            }
-        }*/
-        people.removeIf(p -> p.getId() == id);
+        people.removeIf(person -> Objects.equals(person.getId(), id));
     }
 }
