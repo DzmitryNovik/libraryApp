@@ -1,3 +1,4 @@
+/*
 package ru.novik.spring.config;
 
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -33,3 +34,4 @@ public class MySpringMvcDispatcherSerlvetIntitializer extends AbstractAnnotation
                 new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null ,true, "/*");
     }
 }
+*/
